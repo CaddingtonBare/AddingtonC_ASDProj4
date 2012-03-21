@@ -141,6 +141,7 @@ $(function(){
     }
     
     var clearLocal = function(){
+    	alert("Hello thar!");
         if(localStorage.length === 0){
             alert("There is no data to clear.");
             window.location.reload();
