@@ -219,29 +219,26 @@ $('#landing').live("pageshow", function() {
     }
     
     //Create eventhandler for clicking "CouchDB AJAX call jQM listview" & populate page with the pulled data
-    $('#addJSON').on("click", function(){
-        $('#jsontent').empty();
-        $.ajax({
-            url: "_view/sport",
-            dataType: "json",
-            success: function(answer){
-            	$.each(answer.rows, function(index, sport){
-            		var whichSport = sport.value.sport;
-            		var teamName = sport.value.teamname;
-            		var nextDate = sport.value.nextdate;
-            		$('#jsontent').append(
-            				$('<li>').append(
-            						$('<a>').attr("href", "#")
-            							.text(teamName)
-            								.append(
-            										$('<img src="' + whichSport + '_10px.png" />')
-            								)
-            								
-            				)
+    $('#JSONpage').live("pageshow", function() {
+    	$.couch.db('pleague-app').view("pickupleague/sport", {
+    		success: function(answer) {
+    			$('#jsontent').empty();
+    			$.each(answer.rows, function(index, sport){
+    				var whichSport = sport.value.sport;
+    				var teamName = sport.value.teamname;
+    				var nextDate = sport.value.nextdate;
+    				$('#jsontent').append(
+    					$('<li>').append(
+            				$('<a>').attr("href", "#")
+            					.text(teamName)
+            						.append(
+            								$('<img src="' + whichSport + '_10px.png" />')
+            						)		
+            			)
             		);
-            	});
+    			});
             	$('#jsontent').listview('refresh');
-            }
+    		}
         });                    
     });
     
