@@ -5,6 +5,15 @@
 
 $(function(){
 
+$('#landing').live("pageshow", function() {
+	$.couch.db("pleague-app").view("pickupleague/sport", {
+		success: function(data){
+			console.log("Worked!");
+		}
+	})
+})
+	
+	
     var toggleControls = function(n){
         var displayNone = { 'display': 'none' };
         var displayInline = { 'display': 'inline' };
