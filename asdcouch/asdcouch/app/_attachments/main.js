@@ -220,7 +220,7 @@ $('#landing').live("pageshow", function() {
     
     //Create eventhandler for clicking "CouchDB AJAX call jQM listview" & populate page with the pulled data
     $('#JSONpage').live("pageshow", function() {
-    	$.couch.db('#JSONpage').view("pickupleague/sport", {
+    	$.couch.db('pleague-app').view("pickupleague/sport", {
     		success: function(answer) {
     			$('#jsontent').empty();
     			$.each(answer.rows, function(index, sport){
