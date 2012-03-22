@@ -233,7 +233,7 @@ $('#landing').live("pageshow", function() {
     				$('#jsontent').append(
     					$('<li>').append(
             				$('<a>')
-            					.attr("href", "sport.html?program=" + teamName + "")
+            					.attr("href", "sport.html?sport=" + whichSport + "")
             					.text(teamName)
             						.append(
             								$('<img src="' + whichSport + '_10px.png" />')
@@ -245,6 +245,28 @@ $('#landing').live("pageshow", function() {
     		}
         });                    
     });
+   
+    var urlVars = function(){
+    	var urlData = $($.mobile.activePage).data("url");
+        var urlParts = urlData.split('?');
+        var urlPairs = urlParts[1].split('&');
+        var urlValues = {};
+        for (var pair in urlPairs) {
+        	var keyValue = urlPairs[pair].split('=');
+        	var key = decodeURIComponent(keyValue[0]);
+        	var value = decodeURIComponent(keyValue[1]);
+        	urlValues[key] = value;
+        }
+        	return urlValues;
+    };
+    
+    $('#sport').live("pageshow", function(){
+    	var sport = urlVars()["sport"];
+    	$.couch.db("pleague-app").view('pickupleague/sportTeams', {
+    		key: "sport:" + sport
+    	});
+    });
+    
     
     //Create eventhandler for clicking "Retrieve XML" & populate page with the pulled data
     $('#addXML').on("click", function(){
