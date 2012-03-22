@@ -9,6 +9,9 @@ $('#landing').live("pageshow", function() {
 	$.couch.db("pleague-app").view("pickupleague/sport", {
 		success: function(data){
 			console.log("Worked!");
+		},
+		failure: function(){
+			console.log("It didn't work, get to the van!");
 		}
 	})
 })
@@ -229,7 +232,8 @@ $('#landing').live("pageshow", function() {
     				var nextDate = sport.value.nextdate;
     				$('#jsontent').append(
     					$('<li>').append(
-            				$('<a>').attr("href", "#")
+            				$('<a>')
+            					.attr("href", "sport.html?program=" + teamName + "")
             					.text(teamName)
             						.append(
             								$('<img src="' + whichSport + '_10px.png" />')
