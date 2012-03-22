@@ -225,15 +225,16 @@ $('#landing').live("pageshow", function() {
     $('#JSONpage').live("pageshow", function() {
     	$.couch.db('pleague-app').view("pickupleague/sport", {
     		success: function(answer) {
+    			console.log(answer);
     			$('#jsontent').empty();
     			$.each(answer.rows, function(index, sport){
     				var whichSport = sport.value.sport;
     				var teamName = sport.value.teamname;
     				var nextDate = sport.value.nextdate;
     				$('#jsontent').append(
-    					$('<li>').append(
+    					$('<li id="' + teamName + '>').append(
             				$('<a>')
-            					.attr("href", "sport.html?sport=" + whichSport + "")
+            					.attr("href", "sport.html?sport=" + teamName + "")
             					.text(teamName)
             						.append(
             								$('<img src="' + whichSport + '_10px.png" />')
@@ -268,7 +269,7 @@ $('#landing').live("pageshow", function() {
     });
     
     
-    //Create eventhandler for clicking "Retrieve XML" & populate page with the pulled data
+    /*Create eventhandler for clicking "Retrieve XML" & populate page with the pulled data
     $('#addXML').on("click", function(){
         $('#xmlcontent').empty();
         $.ajax({
@@ -303,9 +304,9 @@ $('#landing').live("pageshow", function() {
         }
         })
     });
+    */
     
-    //Create eventhandler for clicking "Retrieve CSV" & populate page with the pulled data
-    
+    /*Create eventhandler for clicking "Retrieve CSV" & populate page with the pulled data
     $('#addCSV').on("click", function(){
         $('#csvcontent').empty();
         $.ajax({
@@ -348,6 +349,7 @@ $('#landing').live("pageshow", function() {
             }
         })
     });
+    */
     
     var errMsg = $('#errors');
     //Link/Submit Click events
