@@ -232,9 +232,9 @@ $('#landing').live("pageshow", function() {
     				var teamName = sport.value.teamname;
     				var nextDate = sport.value.nextdate;
     				$('#jsontent').append(
-    					$('<li id="' + whichSport + '>').append(
+    					$('<li id="' + teamName + '>').append(
             				$('<a>')
-            					.attr("href", "sport.html?sport=" + teamName + "")
+            					.attr("href", "sportpage.html?sport=" + teamName + "")
             					.text(teamName)
             						.append(
             								$('<img src="' + whichSport + '_10px.png" />')
@@ -246,7 +246,7 @@ $('#landing').live("pageshow", function() {
     		}
         });                    
     });
-   
+    
     var urlVars = function(){
     	var urlData = $($.mobile.activePage).data("url");
         var urlParts = urlData.split('?');
@@ -263,94 +263,13 @@ $('#landing').live("pageshow", function() {
     
     $('#sport').live("pageshow", function(){
     	var sport = urlVars()["sport"];
-    	console.log(sport);
-    	$.couch.db("pleague-app").view('pickupleague/sportTeams', {
-    		key: "sport:" + sport
-    	});
-    });
-    
-    
-    /*Create eventhandler for clicking "Retrieve XML" & populate page with the pulled data
-    $('#addXML').on("click", function(){
-        $('#xmlcontent').empty();
-        $.ajax({
-        url: 'xhr/data.xml',
-        type: 'GET',
-        dataType: 'xml',
-        success: function(xml){
-            alert("XML data retrieved successfully!");            
-            $(xml).find("team").each(function(){
-                var sport = $(this).find('sports').text();
-                var teamname = $(this).find('teamname').text();
-                var teamsize = $(this).find('teamsize').text();
-                var availabletime = $(this).find('availabletime').text();
-                var nextdate = $(this).find('nextdate').text();
-                var notes = $(this).find('notes').text();
-                $('' +
-                    '<div id="team">'+
-                        '<h3><img src="' + sport + '_10px.png" />' + sport + '</h3>'+
-                        '<div>'+
-                            '<ul>'+
-                                '<li>Sport: ' + sport + '</li>'+
-                                '<li>' + teamname + '</li>'+
-                                '<li>' + teamsize + '</li>'+
-                                '<li>' + availabletime + '</li>'+                
-                                '<li>' + nextdate + '</li>'+                
-                                '<li>' + notes + '</li>'+
-                            '</ul>'+
-                        '</div>'+
-                    '</div>'
-                ).appendTo('#xmlcontent');
-            })
-        }
-        })
-    });
-    */
-    
-    /*Create eventhandler for clicking "Retrieve CSV" & populate page with the pulled data
-    $('#addCSV').on("click", function(){
-        $('#csvcontent').empty();
-        $.ajax({
-            url: 'xhr/data.csv',
-            type: 'GET',
-            dataType: 'text',
-            success: function(csv){
-                alert("CSV data retrieved successfully!");
-                var teams = [];
-                var pulledCSV = csv.split(/\r\n|\n/);
-                var labels = pulledCSV[0].split(',');
-                for(var i=2; i<pulledCSV.length; i++) {
-                    var team = pulledCSV[i].split(',');
-                    if (team.length == labels.length) {
-                        var teamData = [];
-                        for (var j=0; j<labels.length; j++){
-                            teamData.push(team[j]);
-                        }
-                        teams.push(teamData);
-                    }
-                }
-                for(var k=0; k<teams.length; k++){
-                    var teamCat = teams[k];
-                    $('' +
-                        '<div id="team">'+
-                            '<h3><img src="' + teamCat[0] + '_10px.png" />' + teamCat[0] + '</h3>'+
-                            '<div>'+
-                                '<ul>'+
-                                    '<li>Sport: ' + teamCat[0] + '</li>'+
-                                    '<li>Team Name: ' + teamCat[1] + '</li>'+
-                                    '<li>Team Size: ' + teamCat[2] + '</li>'+
-                                    '<li>Next available date: ' + teamCat[3] + '</li>'+
-                                    '<li>Only available in the evening: ' + teamCat[4] + '</li>'+
-                                    '<li>Notes: ' + teamCat[5] + '</li>'+
-                                '</ul>'+
-                            '</div>'+
-                        '</div>'
-                    ).appendTo('#csvcontent');
-                }
-            }
-        })
-    });
-    */
+
+    	$.couch.db("pleague-app").openDoc(sport, {
+    		success: function(answer) {
+    			var 
+    		}
+    	})
+    });    
     
     var errMsg = $('#errors');
     //Link/Submit Click events
