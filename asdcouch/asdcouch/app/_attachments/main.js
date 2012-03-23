@@ -221,7 +221,7 @@ $('#landing').live("pageshow", function() {
         }
     }
     
-    //Create eventhandler for clicking "CouchDB AJAX call jQM listview" & populate page with the pulled data
+    //Couchdb data call and jQM listview display
     $('#JSONpage').live("pageshow", function() {
     	$.couch.db('pleague-app').view("pickupleague/sport", {
     		success: function(answer) {
@@ -232,7 +232,7 @@ $('#landing').live("pageshow", function() {
     				var teamName = sport.value.teamname;
     				var nextDate = sport.value.nextdate;
     				$('#jsontent').append(
-    					$('<li id="' + teamName + '>').append(
+    					$('<li id="' + whichSport + '>').append(
             				$('<a>')
             					.attr("href", "sport.html?sport=" + teamName + "")
             					.text(teamName)
@@ -258,11 +258,12 @@ $('#landing').live("pageshow", function() {
         	var value = decodeURIComponent(keyValue[1]);
         	urlValues[key] = value;
         }
-        	return urlValues;
+        	console.log(urlValues);
     };
     
     $('#sport').live("pageshow", function(){
     	var sport = urlVars()["sport"];
+    	console.log(sport);
     	$.couch.db("pleague-app").view('pickupleague/sportTeams', {
     		key: "sport:" + sport
     	});
