@@ -228,16 +228,14 @@ $('#landing').live("pageshow", function() {
     			console.log(answer);
     			$('#jsontent').empty();
     			$.each(answer.rows, function(index, sport){
-    				var whichSport = sport.value.sport;
-    				var teamName = sport.value.teamname;
-    				var nextDate = sport.value.nextdate;
+    				var item = (sport.value || sport.doc);
     				$('#jsontent').append(
-    					$('<li id="' + teamName + '>').append(
+    					$('<li id="' + item.teamname + '">').append(
             				$('<a>')
-            					.attr("href", "sportpage.html?sport=" + teamName + "")
-            					.text(teamName)
+            					.attr("href", "sportpage.html?sport=" + item.sport + "&team=" + item.teamname + "&nextdate=" + item.nextdate)
+            					.text(item.teamname)
             						.append(
-            								$('<img src="' + whichSport + '_10px.png" />')
+            								$('<img src="' + item.sport + '_10px.png" />')
             						)		
             			)
             		);
@@ -246,7 +244,8 @@ $('#landing').live("pageshow", function() {
     		}
         });                    
     });
-    
+
+
     var urlVars = function(){
     	var urlData = $($.mobile.activePage).data("url");
         var urlParts = urlData.split('?');
@@ -258,19 +257,35 @@ $('#landing').live("pageshow", function() {
         	var value = decodeURIComponent(keyValue[1]);
         	urlValues[key] = value;
         }
-        	console.log(urlValues);
+        	return urlValues;
     };
-    
+
     $('#sport').live("pageshow", function(){
     	var sport = urlVars()["sport"];
+    	var team = urlVars()["team"];
+    	var date = urlVars()["nextdate"];
+    	console.log(sport);
+    	console.log(team);
+    	console.log(date);
 
     	$.couch.db("pleague-app").openDoc(sport, {
     		success: function(answer) {
-    			var 
+    			//Declaration of value variables, not sure how to reach these at this point though.
+    			
+    			$('#sportItems').append(
+    				'<h1>' + sport + '</h1>' +
+    					'<li id="' + team + '"> Team Name: ' + team + '></li>' + 
+    					'<li id="' + date + '"> Next Date: ' + date + '></li>' + 
+    					'<li><a href="#" id="editSTeam">Edit Team</a></li>' +
+    					'<li><a href="#" id="deleteSTeam">Delete Team</a></li>'
+    			).append(
+    				$('<li id="' + team + '> Team Name: ' + team + '></li>')	
+    			).append(
+    				$('<li id="' + date + '> Next Date: ' + date + '></li>')
+    			)
     		}
-    	})
+    	});
     });    
-    
     var errMsg = $('#errors');
     //Link/Submit Click events
     $('#displayData').on("click", getData);
