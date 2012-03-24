@@ -260,6 +260,7 @@ $('#landing').live("pageshow", function() {
         	return urlValues;
     };
 
+    //Populate page with specific team data including Edit & Delete links
     $('#sport').live("pageshow", function(){
     	var sport = urlVars()["sport"];
     	var team = urlVars()["team"];
@@ -286,6 +287,11 @@ $('#landing').live("pageshow", function() {
     		}
     	});
     });    
+    
+    //Populate edit form with info
+    
+    
+    
     var errMsg = $('#errors');
     //Link/Submit Click events
     $('#displayData').on("click", getData);
