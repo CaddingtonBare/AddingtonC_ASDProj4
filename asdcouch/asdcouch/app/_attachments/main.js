@@ -292,6 +292,7 @@ $('#landing').live("pageshow", function() {
     
     
     
+    
     var errMsg = $('#errors');
     //Link/Submit Click events
     $('#displayData').on("click", getData);
